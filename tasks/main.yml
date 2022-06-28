@@ -5,9 +5,8 @@
     state: present
     key: https://repo.clickhouse.com/CLICKHOUSE-KEY.GPG
 
-- name: Configure Clickhouse-repo
-  - name: Add Clickhouse repo (if not exists yet)
-    ansible.builtin.command: "dnf config-manager --add-repo https://packages.clickhouse.com/rpm/clickhouse.repo"
+- name: Add Clickhouse repo (if not exists yet)
+  ansible.builtin.command: "dnf config-manager --add-repo https://packages.clickhouse.com/rpm/clickhouse.repo"
 
 - block:
   - name: Get clickhouse distrib
