@@ -5,21 +5,19 @@
     state: present
     key: https://repo.clickhouse.com/CLICKHOUSE-KEY.GPG
 
-- name: Add Clickhouse repo (if not exists yet)
+- name: Add Clickhouse repo
   ansible.builtin.command: "dnf config-manager --add-repo https://packages.clickhouse.com/rpm/clickhouse.repo"
 
-- name: Download clockhouse
-  block:
-  - name: Get clickhouse distrib
-    ansible.builtin.get_url:
-      url: "https://packages.clickhouse.com/rpm/stable/{{ item }}-{{ clickhouse_version }}.noarch.rpm"
-      dest: "./{{ item }}-{{ clickhouse_version }}.rpm"
-    with_items: "{{ clickhouse_packages }}"
-  rescue:
-  - name: Get clickhouse distrib
-    ansible.builtin.get_url:
-      url: "https://packages.clickhouse.com/rpm/stable/clickhouse-common-static-{{ clickhouse_version }}.x86_64.rpm"
-      dest: "./clickhouse-common-static-{{ clickhouse_version }}.rpm"
+- name: Get clickhouse distrib
+  ansible.builtin.get_url:
+    url: "https://packages.clickhouse.com/rpm/stable/{{ item }}-{{ clickhouse_version }}.noarch.rpm"
+    dest: "./{{ item }}-{{ clickhouse_version }}.rpm"
+  with_items: "{{ clickhouse_packages }}"
+
+- name: Get clickhouse distrib
+  ansible.builtin.get_url:
+    url: "https://packages.clickhouse.com/rpm/stable/clickhouse-common-static-{{ clickhouse_version }}.x86_64.rpm"
+    dest: "./clickhouse-common-static-{{ clickhouse_version }}.rpm"
 
 - name: Install clickhouse packages
   ansible.builtin.dnf:
