@@ -24,7 +24,7 @@
 - name: Install clickhouse packages
   ansible.builtin.dnf:
     enablerepo: clickhouse-stable
-    name: ""{{ item }}-{{ clickhouse_version }}""
+    name: "{{ item }}-{{ clickhouse_version }}"
     state: present
   with_items: "{{ clickhouse_packages }}"
   notify: Start clickhouse service
