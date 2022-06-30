@@ -12,7 +12,7 @@
   ansible.builtin.get_url:
     url: "https://packages.clickhouse.com/rpm/stable/{{ item }}-{{ clickhouse_version }}.noarch.rpm"
     dest: "./{{ item }}-{{ clickhouse_version }}.rpm"
-  with_items: "{{ clickhouse_packages }}"
+  with_items: "{{ clickhouse_download }}"
 
 - name: Get clickhouse distrib
   ansible.builtin.get_url:
